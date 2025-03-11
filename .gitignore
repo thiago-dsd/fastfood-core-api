@@ -1,0 +1,6 @@
+# Binaries
+/bin/core-api-template
+
+# Env variables
+.env
+.env.production
