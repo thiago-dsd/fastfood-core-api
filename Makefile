@@ -14,7 +14,6 @@ compile:
 	GOOS=windows GOARCH=arm64 go build -o ./bin/core-api-template-windows-arm64
 
 run:
-	clear
 	echo "Generating docs"
 	swag init --parseDependency
 	echo "Running your program"
