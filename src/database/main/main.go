@@ -1,8 +1,8 @@
 package database_main
 
 import (
-	database_connect "github.com/cogniia/core-api-template/src/database/connect"
-	database_migrate "github.com/cogniia/core-api-template/src/database/migrate"
+	database_connect "github.com/thiago-dsd/fastfood-core-api/src/database/connect"
+	database_migrate "github.com/thiago-dsd/fastfood-core-api/src/database/migrate"
 )
 
 func Database() {

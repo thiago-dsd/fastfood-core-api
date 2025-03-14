@@ -1,6 +1,6 @@
 package user_model
 
-import common_model "github.com/cogniia/core-api-template/src/common/model"
+import common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
 
 type Update struct {
 	Name  string `json:"name,omitempty"`

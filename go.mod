@@ -1,4 +1,4 @@
-module github.com/cogniia/core-api-template
+module github.com/thiago-dsd/fastfood-core-api
 
 go 1.23.0
 

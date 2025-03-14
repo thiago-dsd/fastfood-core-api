@@ -1,7 +1,7 @@
 package database
 
 import (
-	database_connect "github.com/cogniia/core-api-template/src/database/connect"
+	database_connect "github.com/thiago-dsd/fastfood-core-api/src/database/connect"
 	"gorm.io/gorm"
 )
 

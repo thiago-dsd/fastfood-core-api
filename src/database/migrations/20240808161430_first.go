@@ -4,10 +4,10 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/cogniia/core-api-template/src/database"
-	entity "github.com/cogniia/core-api-template/src/user/entity"
 	"github.com/pressly/goose/v3"
 	"github.com/pterm/pterm"
+	"github.com/thiago-dsd/fastfood-core-api/src/database"
+	entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
 func init() {

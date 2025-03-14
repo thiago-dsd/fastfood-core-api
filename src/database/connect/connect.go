@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cogniia/core-api-template/src/config/env"
 	_ "github.com/lib/pq"
 	"github.com/pterm/pterm"
+	"github.com/thiago-dsd/fastfood-core-api/src/config/env"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

@@ -1,8 +1,8 @@
 package user_model
 
 import (
-	common_model "github.com/cogniia/core-api-template/src/common/model"
-	database_model "github.com/cogniia/core-api-template/src/database/model"
+	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
+	database_model "github.com/thiago-dsd/fastfood-core-api/src/database/model"
 )
 
 type QueryPaginated struct {

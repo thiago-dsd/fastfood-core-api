@@ -1,10 +1,10 @@
 package user_handler
 
 import (
-	auth_model "github.com/cogniia/core-api-template/src/auth/model"
-	auth_service "github.com/cogniia/core-api-template/src/auth/service"
-	common_model "github.com/cogniia/core-api-template/src/common/model"
 	"github.com/gofiber/fiber/v2"
+	auth_model "github.com/thiago-dsd/fastfood-core-api/src/auth/model"
+	auth_service "github.com/thiago-dsd/fastfood-core-api/src/auth/service"
+	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
 )
 
 // @Summary		Login

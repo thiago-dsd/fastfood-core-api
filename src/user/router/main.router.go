@@ -1,9 +1,9 @@
 package user_router
 
 import (
-	auth_middleware "github.com/cogniia/core-api-template/src/auth/middleware"
-	user_handler "github.com/cogniia/core-api-template/src/user/handler"
 	"github.com/gofiber/fiber/v2"
+	auth_middleware "github.com/thiago-dsd/fastfood-core-api/src/auth/middleware"
+	user_handler "github.com/thiago-dsd/fastfood-core-api/src/user/handler"
 )
 
 func Route(app *fiber.App) {

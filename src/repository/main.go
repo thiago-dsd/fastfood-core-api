@@ -2,9 +2,9 @@
 package repository
 
 import (
-	"github.com/cogniia/core-api-template/src/database"
-	database_model "github.com/cogniia/core-api-template/src/database/model"
 	"github.com/google/uuid"
+	"github.com/thiago-dsd/fastfood-core-api/src/database"
+	database_model "github.com/thiago-dsd/fastfood-core-api/src/database/model"
 	"gorm.io/gorm"
 )
 

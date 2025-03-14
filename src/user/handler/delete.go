@@ -1,10 +1,10 @@
 package user_handler
 
 import (
-	common_model "github.com/cogniia/core-api-template/src/common/model"
-	"github.com/cogniia/core-api-template/src/repository"
-	user_entity "github.com/cogniia/core-api-template/src/user/entity"
 	"github.com/gofiber/fiber/v2"
+	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
+	"github.com/thiago-dsd/fastfood-core-api/src/repository"
+	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
 // @Summary		Delete current user

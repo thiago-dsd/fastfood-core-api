@@ -25,6 +25,7 @@ clean:
 	swag fmt
 
 setup: # Use this command to setup the environment
+
 	echo "Setting docker container"
 	docker run -d --name core-api-template-database -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres postgres:latest
 

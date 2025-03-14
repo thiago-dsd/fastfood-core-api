@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	auth_model "github.com/cogniia/core-api-template/src/auth/model"
-	"github.com/cogniia/core-api-template/src/config/env"
-	crypto_service "github.com/cogniia/core-api-template/src/crypto/service"
-	"github.com/cogniia/core-api-template/src/database"
-	user_entity "github.com/cogniia/core-api-template/src/user/entity"
 	"github.com/golang-jwt/jwt/v4"
+	auth_model "github.com/thiago-dsd/fastfood-core-api/src/auth/model"
+	"github.com/thiago-dsd/fastfood-core-api/src/config/env"
+	crypto_service "github.com/thiago-dsd/fastfood-core-api/src/crypto/service"
+	"github.com/thiago-dsd/fastfood-core-api/src/database"
+	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
 func Login(email, password string) (*auth_model.LoginResponse, error) {

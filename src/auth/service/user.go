@@ -3,9 +3,9 @@ package auth_service
 import (
 	"errors"
 
-	"github.com/cogniia/core-api-template/src/database"
-	user_entity "github.com/cogniia/core-api-template/src/user/entity"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/thiago-dsd/fastfood-core-api/src/database"
+	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
 // Retrieves the user associated with the provided JWT token.

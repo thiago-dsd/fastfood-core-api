@@ -1,9 +1,9 @@
 package user_entity
 
 import (
-	common_model "github.com/cogniia/core-api-template/src/common/model"
-	crypto_service "github.com/cogniia/core-api-template/src/crypto/service"
-	user_model "github.com/cogniia/core-api-template/src/user/model"
+	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
+	crypto_service "github.com/thiago-dsd/fastfood-core-api/src/crypto/service"
+	user_model "github.com/thiago-dsd/fastfood-core-api/src/user/model"
 	"gorm.io/gorm"
 )
 

@@ -3,9 +3,9 @@ package user_handler
 import (
 	"errors"
 
-	common_model "github.com/cogniia/core-api-template/src/common/model"
-	user_entity "github.com/cogniia/core-api-template/src/user/entity"
 	"github.com/gofiber/fiber/v2"
+	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
+	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
 // @Summary		Gets current user

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/cogniia/core-api-template/src/config"
-	server_service "github.com/cogniia/core-api-template/src/server/service"
+	"github.com/thiago-dsd/fastfood-core-api/src/config"
+	server_service "github.com/thiago-dsd/fastfood-core-api/src/server/service"
 )
 
 // @title						Core API template

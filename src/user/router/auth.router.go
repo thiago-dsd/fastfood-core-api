@@ -1,8 +1,8 @@
 package user_router
 
 import (
-	user_handler "github.com/cogniia/core-api-template/src/user/handler"
 	"github.com/gofiber/fiber/v2"
+	user_handler "github.com/thiago-dsd/fastfood-core-api/src/user/handler"
 )
 
 func authRoutes(group fiber.Router) {

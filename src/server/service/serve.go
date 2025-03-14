@@ -3,11 +3,11 @@ package server_service
 import (
 	"fmt"
 
-	"github.com/cogniia/core-api-template/src/config/env"
-	user_router "github.com/cogniia/core-api-template/src/user/router"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/pterm/pterm"
+	"github.com/thiago-dsd/fastfood-core-api/src/config/env"
+	user_router "github.com/thiago-dsd/fastfood-core-api/src/user/router"
 )
 
 func Serve() {
