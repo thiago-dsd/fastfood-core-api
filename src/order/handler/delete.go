@@ -2,9 +2,10 @@ package order_handler
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/thiago-dsd/fastfood-core-api/src/common/model"
+	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
 	order_entity "github.com/thiago-dsd/fastfood-core-api/src/order/entity"
 	"github.com/thiago-dsd/fastfood-core-api/src/repository"
+	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
 // @Summary		Delete an order
@@ -18,19 +19,19 @@ import (
 // @Security		ApiKeyAuth
 func DeleteOrder(c *fiber.Ctx) error {
 	// Retrieve the userId and role from the context (set by the middleware)
-	userId := c.Locals("userId").(string)
-	role := c.Locals("role").(string)
+	
+	user := c.Locals("user").(*user_entity.User)
 
 	// Define the model that will be passed in the body to delete the order
-	var reqBody model.RequiredId
+	var reqBody common_model.RequiredId
 	if err := c.BodyParser(&reqBody); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(model.NewParseJsonError(err).Send())
+		return c.Status(fiber.StatusBadRequest).JSON(common_model.NewParseJsonError(err).Send())
 	}
 
 	// Retrieve the order from the database by ID
 	order, err := repository.First(
 		order_entity.Order{
-			Audit: model.Audit{
+			Audit: common_model.Audit{
 				Id: reqBody.Id,
 			},
 		},
@@ -38,14 +39,14 @@ func DeleteOrder(c *fiber.Ctx) error {
 	)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(
-			model.NewApiError("unable to find order", err, "repository").Send(),
+			common_model.NewApiError("unable to find order", err, "repository").Send(),
 		)
 	}
 
 	// If the user is not an admin, ensure that they can only delete their own orders
-	if role != "admin" && order.UserId != userId {
+	if *user.Role != "admin" && order.UserID != user.Id {
 		return c.Status(fiber.StatusUnauthorized).JSON(
-			model.NewApiError("You are not authorized to delete this order", nil, "handler").Send(),
+			common_model.NewApiError("You are not authorized to delete this order", nil, "handler").Send(),
 		)
 	}
 
@@ -53,7 +54,7 @@ func DeleteOrder(c *fiber.Ctx) error {
 	err = repository.DeleteById[order_entity.Order](reqBody.Id, nil)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(
-			model.NewApiError("unable to delete order", err, "repository").Send(),
+			common_model.NewApiError("unable to delete order", err, "repository").Send(),
 		)
 	}
 

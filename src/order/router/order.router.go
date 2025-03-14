@@ -3,6 +3,7 @@ package order_router
 import (
 	"github.com/gofiber/fiber/v2"
 	auth_middleware "github.com/thiago-dsd/fastfood-core-api/src/auth/middleware"
+	handler "github.com/thiago-dsd/fastfood-core-api/src/order/handler"
 )
 
 func Route(app *fiber.App) {
@@ -12,9 +13,9 @@ func Route(app *fiber.App) {
 }
 
 func mainRoutes(group fiber.Router) {
-	orderGroup.Post("/", middleware.UserMiddleware, handler.CreateOrder)
-	orderGroup.Get("/", middleware.UserMiddleware, handler.GetUserOrders)
-	orderGroup.Get("/by-id", auth_middleware.UserMiddleware, handler.GetOrderByID)
-	orderGroup.Put("/update", middleware.UserMiddleware, handler.UpdateOrder)
-	orderGroup.Delete("/delete", middleware.UserMiddleware, handler.DeleteOrder)
+	group.Post("/", auth_middleware.UserMiddleware, handler.CreateOrder)
+	group.Get("/", auth_middleware.UserMiddleware, handler.GetAllOrders)
+	group.Get("/by-id", auth_middleware.UserMiddleware, handler.GetOrderByID)
+	group.Put("/update", auth_middleware.UserMiddleware, handler.UpdateOrder)
+	group.Delete("/delete", auth_middleware.UserMiddleware, handler.DeleteOrder)
 }

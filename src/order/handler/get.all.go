@@ -3,9 +3,10 @@ package order_handler
 import (
 	"github.com/gofiber/fiber/v2"
 	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
-	"github.com/thiago-dsd/fastfood-core-api/src/order/entity"
-	"github.com/thiago-dsd/fastfood-core-api/src/order/model"
+	order_entity "github.com/thiago-dsd/fastfood-core-api/src/order/entity"
+	order_model "github.com/thiago-dsd/fastfood-core-api/src/order/model"
 	"github.com/thiago-dsd/fastfood-core-api/src/repository"
+	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
 // @Summary		Get all orders for the current user
@@ -19,18 +20,18 @@ import (
 // @Security		ApiKeyAuth
 func GetAllOrders(c *fiber.Ctx) error {
 	// Retrieve the userId from the context using the middleware
-	userId := c.Locals("userId").(string)
+	user := c.Locals("user").(*user_entity.User)
 
 	// Parse the query parameters from the body
-	query := new(model.QueryPaginated)
+	query := new(order_model.QueryPaginated)
 	if err := c.BodyParser(query); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(common_model.NewParseJsonError(err).Send())
 	}
 
 	// Query for paginated orders based on userId and query parameters
 	orders, err := repository.GetPaginated(
-		entity.Order{
-			UserID: userId, // Use the userId from the context
+		order_entity.Order{
+			UserID: user.Id, // Use the userId from the context
 		},
 		&query.Paginate,
 		&query.DateOrder,
