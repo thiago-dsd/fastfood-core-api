@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/pterm/pterm"
 	"github.com/thiago-dsd/fastfood-core-api/src/config/env"
+	order_router "github.com/thiago-dsd/fastfood-core-api/src/order/router"
 	user_router "github.com/thiago-dsd/fastfood-core-api/src/user/router"
 )
 
@@ -21,6 +22,7 @@ func Serve() {
 	
 	makeDocs(app)
 	user_router.Route(app)
+	order_router.Route(app)
 
 	err := app.Listen(fmt.Sprintf(":%s", env.ServerPort))
 	pterm.DefaultLogger.Fatal(

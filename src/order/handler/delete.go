@@ -8,27 +8,29 @@ import (
 	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
-// @Summary		Delete an order
-// @Description	Deletes a specific order based on the ID sent in the request body
+// @Summary		Delete order by ID
+// @Description	Deletes an order by its ID. Users can only delete their own orders.
 // @Tags			Order
 // @Accept			json
-// @Produce			json
-// @Param			body	body		model.RequiredId	true	"Order ID to delete"
-// @Success			204		"Order deleted successfully"
-// @Router			/api/orders/delete [delete]
+// @Produce		json
+// @Param			body	body		common_model.RequiredId	true	"Order ID to delete"
+// @Success		204	"Order deleted successfully"
+// @Router			/order [delete]
 // @Security		ApiKeyAuth
-func DeleteOrder(c *fiber.Ctx) error {
-	// Retrieve the userId and role from the context (set by the middleware)
-	
-	user := c.Locals("user").(*user_entity.User)
-
-	// Define the model that will be passed in the body to delete the order
+func DeleteOrderByID(c *fiber.Ctx) error {
 	var reqBody common_model.RequiredId
+
+	// Parse the request body to extract the order ID
 	if err := c.BodyParser(&reqBody); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(common_model.NewParseJsonError(err).Send())
+		return c.Status(fiber.StatusBadRequest).JSON(
+			common_model.NewParseJsonError(err).Send(),
+		)
 	}
 
-	// Retrieve the order from the database by ID
+	// Retrieve the authenticated user from the middleware
+	user := c.Locals("user").(*user_entity.User)
+
+	// Fetch the order from the database using the provided ID
 	order, err := repository.First(
 		order_entity.Order{
 			Audit: common_model.Audit{
@@ -43,14 +45,14 @@ func DeleteOrder(c *fiber.Ctx) error {
 		)
 	}
 
-	// If the user is not an admin, ensure that they can only delete their own orders
-	if *user.Role != "admin" && order.UserID != user.Id {
+	// Check if the user is authorized to delete the order (users can only delete their own orders)
+	if order.UserID != user.Id {
 		return c.Status(fiber.StatusUnauthorized).JSON(
 			common_model.NewApiError("You are not authorized to delete this order", nil, "handler").Send(),
 		)
 	}
 
-	// Delete the order
+	// Delete the order from the database
 	err = repository.DeleteById[order_entity.Order](reqBody.Id, nil)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(
@@ -58,6 +60,6 @@ func DeleteOrder(c *fiber.Ctx) error {
 		)
 	}
 
-	// Return a success status with no content
+	// Return HTTP 204 No Content on successful deletion
 	return c.SendStatus(fiber.StatusNoContent)
 }

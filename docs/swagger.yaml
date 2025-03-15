@@ -52,6 +52,45 @@ definitions:
   fiber.Map:
     additionalProperties: true
     type: object
+  order_entity.Order:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      items:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/user_entity.User'
+      user_id:
+        type: string
+    type: object
+  order_model.Create:
+    properties:
+      description:
+        type: string
+      items:
+        items:
+          type: string
+        type: array
+    type: object
+  order_model.UpdateOrder:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      items:
+        items:
+          type: string
+        type: array
+    type: object
   user_entity.User:
     properties:
       created_at:
@@ -107,6 +146,177 @@ info:
   title: Core API template
   version: "1.0"
 paths:
+  /api/orders:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of orders for the user making the request
+      parameters:
+      - default: desc
+        enum:
+        - asc
+        - desc
+        in: query
+        name: created_at
+        type: string
+        x-enum-varnames:
+        - Asc
+        - Desc
+      - in: query
+        name: created_at_geq
+        type: string
+      - in: query
+        name: created_at_leq
+        type: string
+      - in: query
+        name: description
+        type: string
+      - description: The unique identifier
+        in: query
+        name: id
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: items
+        type: array
+      - default: 10
+        description: Number of items to return
+        in: query
+        name: limit
+        type: integer
+      - default: 0
+        description: The offset from where to start the items
+        in: query
+        name: offset
+        type: integer
+      - default: desc
+        enum:
+        - asc
+        - desc
+        in: query
+        name: updated_at
+        type: string
+        x-enum-varnames:
+        - Asc
+        - Desc
+      - in: query
+        name: updated_at_geq
+        type: string
+      - in: query
+        name: updated_at_leq
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of orders
+          schema:
+            items:
+              $ref: '#/definitions/order_entity.Order'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all orders for the current user
+      tags:
+      - Order
+  /api/orders/get:
+    get:
+      consumes:
+      - application/json
+      description: Returns a specific order by ID, based on the user's role
+      parameters:
+      - description: Order ID to get
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/common_model.RequiredId'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Order details
+          schema:
+            $ref: '#/definitions/order_entity.Order'
+        "403":
+          description: 'Forbidden: User is not authorized to access this order'
+        "404":
+          description: Order not found
+      security:
+      - ApiKeyAuth: []
+      summary: Get order by ID
+      tags:
+      - Order
+  /api/orders/update:
+    put:
+      consumes:
+      - application/json
+      description: Updates the details of an order based on the data sent in the request
+        body
+      parameters:
+      - description: Order data to update
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/order_model.UpdateOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Order updated successfully
+          schema:
+            $ref: '#/definitions/order_entity.Order'
+      security:
+      - ApiKeyAuth: []
+      summary: Update an order
+      tags:
+      - Order
+  /order:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an order by its ID. Users can only delete their own orders.
+      parameters:
+      - description: Order ID to delete
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/common_model.RequiredId'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Order deleted successfully
+      security:
+      - ApiKeyAuth: []
+      summary: Delete order by ID
+      tags:
+      - Order
+    post:
+      consumes:
+      - application/json
+      description: Creates a new order for the user
+      parameters:
+      - description: Order data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/order_model.Create'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created order
+          schema:
+            $ref: '#/definitions/order_entity.Order'
+      summary: Creates a new order
+      tags:
+      - Order
   /user:
     delete:
       consumes:

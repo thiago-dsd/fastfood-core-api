@@ -2,6 +2,7 @@ package auth_middleware
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,8 +16,12 @@ import (
 
 // Checks if user provided the correct token.
 func UserMiddleware(c *fiber.Ctx) error {
+	fmt.Println("executou o middleware")
+	fmt.Println("Authorization Header:", c.Body())
 	// Get the authorization header
 	authHeader := c.Get("Authorization")
+	fmt.Println("Authorization Header:", authHeader) // Adicionando log
+	
 	if authHeader == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(
 			common_model.NewApiError("Authorization header not provided", nil, "middleware").Send(),
@@ -31,6 +36,8 @@ func UserMiddleware(c *fiber.Ctx) error {
 		)
 	}
 	tokenString := splitToken[1]
+
+	fmt.Println("✅ Extracted Token:", tokenString)
 
 	// Parse the JWT token
 	token, err := auth_service.ParseToken(tokenString)

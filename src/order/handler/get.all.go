@@ -14,19 +14,19 @@ import (
 // @Tags			Order
 // @Accept			json
 // @Produce			json
-// @Param			body	body		model.QueryPaginated	true	"Query parameters for pagination and filtering orders"
+// @Param			user	query		order_model.QueryPaginated	true	"Query parameters for pagination and filtering orders"
 // @Success			200		{array}		order_entity.Order	"List of orders"
 // @Router			/api/orders [get]
 // @Security		ApiKeyAuth
 func GetAllOrders(c *fiber.Ctx) error {
-	// Retrieve the userId from the context using the middleware
-	user := c.Locals("user").(*user_entity.User)
-
-	// Parse the query parameters from the body
+	// Parse the query parameters from the URL
 	query := new(order_model.QueryPaginated)
-	if err := c.BodyParser(query); err != nil {
+	if err := c.QueryParser(query); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(common_model.NewParseJsonError(err).Send())
 	}
+
+	// Retrieve the userId from the context using the middleware
+	user := c.Locals("user").(*user_entity.User)
 
 	// Query for paginated orders based on userId and query parameters
 	orders, err := repository.GetPaginated(
