@@ -46,7 +46,7 @@ func DeleteOrderByID(c *fiber.Ctx) error {
 	}
 
 	// Check if the user is authorized to delete the order (users can only delete their own orders)
-	if order.UserID != user.Id {
+	if order.UserId != user.Id {
 		return c.Status(fiber.StatusUnauthorized).JSON(
 			common_model.NewApiError("You are not authorized to delete this order", nil, "handler").Send(),
 		)

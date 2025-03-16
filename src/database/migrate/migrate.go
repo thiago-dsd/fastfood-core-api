@@ -8,6 +8,7 @@ import (
 	"github.com/pterm/pterm"
 	"github.com/thiago-dsd/fastfood-core-api/src/database"
 	_ "github.com/thiago-dsd/fastfood-core-api/src/database/migrations"
+	order_entity "github.com/thiago-dsd/fastfood-core-api/src/order/entity"
 	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
@@ -22,6 +23,7 @@ func automaticMigrations() {
 	pterm.DefaultLogger.Info("Adding automatic migrations")
 	err := database.Connection().AutoMigrate(
 		&user_entity.User{},
+		&order_entity.Order{},
 	)
 	if err != nil {
 		pterm.DefaultLogger.Error(fmt.Sprintf("Unable to add automatic migrations: %s", err))

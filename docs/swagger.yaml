@@ -66,8 +66,6 @@ definitions:
         type: array
       updated_at:
         type: string
-      user:
-        $ref: '#/definitions/user_entity.User'
       user_id:
         type: string
     type: object
@@ -218,7 +216,7 @@ paths:
             type: array
       security:
       - ApiKeyAuth: []
-      summary: Get all orders for the current user
+      summary: Get all orders for the current user (paginated)
       tags:
       - Order
   /api/orders/get:
@@ -314,6 +312,8 @@ paths:
           description: Created order
           schema:
             $ref: '#/definitions/order_entity.Order'
+      security:
+      - ApiKeyAuth: []
       summary: Creates a new order
       tags:
       - Order

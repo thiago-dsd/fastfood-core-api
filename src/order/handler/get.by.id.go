@@ -50,7 +50,7 @@ func GetOrderByID(c *fiber.Ctx) error {
 	}
 
 	// Check if the user is allowed to view this order
-	if user.Id != order.UserID {
+	if user.Id != order.UserId {
 		return c.Status(fiber.StatusForbidden).JSON(
 			common_model.NewApiError("user not authorized to access this order", errors.New("permission denied"), "handler").Send(),
 		)

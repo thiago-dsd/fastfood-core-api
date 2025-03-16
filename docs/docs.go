@@ -32,7 +32,7 @@ const docTemplate = `{
                 "tags": [
                     "Order"
                 ],
-                "summary": "Get all orders for the current user",
+                "summary": "Get all orders for the current user (paginated)",
                 "parameters": [
                     {
                         "enum": [
@@ -216,6 +216,11 @@ const docTemplate = `{
         },
         "/order": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Creates a new order for the user",
                 "consumes": [
                     "application/json"
@@ -747,9 +752,6 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string"
-                },
-                "user": {
-                    "$ref": "#/definitions/user_entity.User"
                 },
                 "user_id": {
                     "type": "string"

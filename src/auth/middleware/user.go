@@ -16,11 +16,7 @@ import (
 
 // Checks if user provided the correct token.
 func UserMiddleware(c *fiber.Ctx) error {
-	fmt.Println("executou o middleware")
-	fmt.Println("Authorization Header:", c.Body())
-	// Get the authorization header
 	authHeader := c.Get("Authorization")
-	fmt.Println("Authorization Header:", authHeader) // Adicionando log
 	
 	if authHeader == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(

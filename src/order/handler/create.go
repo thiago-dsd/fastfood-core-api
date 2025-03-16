@@ -17,6 +17,7 @@ import (
 // @Param			order	body		order_model.Create	true	"Order data"
 // @Success		201		{object}	order_entity.Order		"Created order"
 // @Router			/order [post]
+// @Security		ApiKeyAuth
 func CreateOrder(c *fiber.Ctx) error {
 	// Parse the request body
 	var newOrder order_model.Create
@@ -29,9 +30,9 @@ func CreateOrder(c *fiber.Ctx) error {
 
 	// Create the new order, using the userId from the context
 	newEntity := order_entity.Order{
-		UserID:      user.Id, // Use the userId from the context (not from the request body)
+		UserId:      user.Id, // Use the userId from the context (not from the request body)
 		Description: newOrder.Description,
-		Items:       newOrder.Items,
+		Items:       &newOrder.Items,
 	}
 
 	// Save the new order to the database

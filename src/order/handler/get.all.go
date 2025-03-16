@@ -1,6 +1,8 @@
 package order_handler
 
 import (
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 	common_model "github.com/thiago-dsd/fastfood-core-api/src/common/model"
 	order_entity "github.com/thiago-dsd/fastfood-core-api/src/order/entity"
@@ -9,7 +11,7 @@ import (
 	user_entity "github.com/thiago-dsd/fastfood-core-api/src/user/entity"
 )
 
-// @Summary		Get all orders for the current user
+// @Summary		Get all orders for the current user (paginated)
 // @Description	Retrieves a paginated list of orders for the user making the request
 // @Tags			Order
 // @Accept			json
@@ -19,30 +21,42 @@ import (
 // @Router			/api/orders [get]
 // @Security		ApiKeyAuth
 func GetAllOrders(c *fiber.Ctx) error {
+	fmt.Println("📌 GetAllOrders chamado!")
+
 	// Parse the query parameters from the URL
 	query := new(order_model.QueryPaginated)
 	if err := c.QueryParser(query); err != nil {
+		fmt.Println("❌ Erro ao fazer parsing da query:", err)
 		return c.Status(fiber.StatusBadRequest).JSON(common_model.NewParseJsonError(err).Send())
 	}
 
-	// Retrieve the userId from the context using the middleware
-	user := c.Locals("user").(*user_entity.User)
+	// Obtém o usuário autenticado do contexto
+	user, ok := c.Locals("user").(*user_entity.User)
+	if !ok {
+		fmt.Println("❌ Erro: Usuário não encontrado no contexto")
+		return c.Status(fiber.StatusUnauthorized).JSON(common_model.NewApiError("Usuário não autenticado", nil, "handler").Send())
+	}
 
-	// Query for paginated orders based on userId and query parameters
+	fmt.Println("✅ Usuário autenticado:", user.Id)
+
+	// Busca as ordens paginadas do usuário
 	orders, err := repository.GetPaginated(
 		order_entity.Order{
-			UserID: user.Id, // Use the userId from the context
+			UserId: user.Id, // Filtra pelo ID do usuário autenticado
 		},
-		&query.Paginate,
-		&query.DateOrder,
-		&query.DateWhere,
+		&query.Paginate,  // Parâmetros de paginação
+		&query.DateOrder, // Ordenação por data
+		&query.DateWhere, // Filtro por data
 		"",
 		nil,
 	)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(common_model.NewApiError("unable to get paginated orders", err, "repository").Send())
+		fmt.Println("❌ Erro ao buscar ordens paginadas:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(common_model.NewApiError("Erro ao buscar pedidos", err, "repository").Send())
 	}
 
-	// Return the list of orders
+	fmt.Printf("✅ %d pedidos encontrados (paginados)\n", len(orders))
+
+	// Retorna os pedidos encontrados
 	return c.Status(fiber.StatusOK).JSON(orders)
 }

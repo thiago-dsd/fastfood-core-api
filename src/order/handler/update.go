@@ -47,7 +47,7 @@ func UpdateOrder(c *fiber.Ctx) error {
 	}
 
 	// Ensure the order belongs to the current user
-	if order.UserID != user.Id {
+	if order.UserId != user.Id {
 		return c.Status(fiber.StatusUnauthorized).JSON(
 			common_model.NewApiError("You are not authorized to update this order", nil, "handler").Send(),
 		)
@@ -55,9 +55,9 @@ func UpdateOrder(c *fiber.Ctx) error {
 
 	// Prepare updated order data
 	updatedOrder := order_entity.Order{
-		UserID:     user.Id,  // The userID is already set by middleware, no need to send in the body
+		UserId:     user.Id,  // The userID is already set by middleware, no need to send in the body
 		Description: orderData.Description,
-		Items:      orderData.Items,
+		Items:      &orderData.Items,
 	}
 
 	// Update the order using the repository
