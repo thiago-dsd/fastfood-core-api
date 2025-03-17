@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/orders": {
+        "/order": {
             "get": {
                 "security": [
                     {
@@ -128,54 +128,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/api/orders/get": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Returns a specific order by ID, based on the user's role",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Order"
-                ],
-                "summary": "Get order by ID",
-                "parameters": [
-                    {
-                        "description": "Order ID to get",
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/common_model.RequiredId"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Order details",
-                        "schema": {
-                            "$ref": "#/definitions/order_entity.Order"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden: User is not authorized to access this order"
-                    },
-                    "404": {
-                        "description": "Order not found"
-                    }
-                }
-            }
-        },
-        "/api/orders/update": {
+            },
             "put": {
                 "security": [
                     {
@@ -212,9 +165,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/order": {
+            },
             "post": {
                 "security": [
                     {
@@ -283,6 +234,51 @@ const docTemplate = `{
                 "responses": {
                     "204": {
                         "description": "Order deleted successfully"
+                    }
+                }
+            }
+        },
+        "/order/by-id": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns a specific order by ID, based on the user's role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get order by ID",
+                "parameters": [
+                    {
+                        "description": "Order ID to get",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/common_model.RequiredId"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order details",
+                        "schema": {
+                            "$ref": "#/definitions/order_entity.Order"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden: User is not authorized to access this order"
+                    },
+                    "404": {
+                        "description": "Order not found"
                     }
                 }
             }

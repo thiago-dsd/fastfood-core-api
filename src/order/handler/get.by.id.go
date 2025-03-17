@@ -19,7 +19,7 @@ import (
 // @Success			200		{object}	order_entity.Order	"Order details"
 // @Failure			403		"Forbidden: User is not authorized to access this order"
 // @Failure			404		"Order not found"
-// @Router			/api/orders/get [get]
+// @Router			/order/by-id [get]
 // @Security		ApiKeyAuth
 func GetOrderByID(c *fiber.Ctx) error {
 	// Define a model to receive the order ID from the body

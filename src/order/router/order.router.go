@@ -16,6 +16,6 @@ func mainRoutes(group fiber.Router) {
 	group.Post("/", auth_middleware.UserMiddleware, handler.CreateOrder)
 	group.Get("/", auth_middleware.UserMiddleware, handler.GetAllOrders)
 	group.Get("/by-id", auth_middleware.UserMiddleware, handler.GetOrderByID)
-	group.Put("/update", auth_middleware.UserMiddleware, handler.UpdateOrder)
-	group.Delete("/delete", auth_middleware.UserMiddleware, handler.DeleteOrderByID)
+	group.Put("/", auth_middleware.UserMiddleware, handler.UpdateOrder)
+	group.Delete("/", auth_middleware.UserMiddleware, handler.DeleteOrderByID)
 }

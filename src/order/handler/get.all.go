@@ -18,7 +18,7 @@ import (
 // @Produce			json
 // @Param			user	query		order_model.QueryPaginated	true	"Query parameters for pagination and filtering orders"
 // @Success			200		{array}		order_entity.Order	"List of orders"
-// @Router			/api/orders [get]
+// @Router			/order [get]
 // @Security		ApiKeyAuth
 func GetAllOrders(c *fiber.Ctx) error {
 	fmt.Println("📌 GetAllOrders chamado!")
@@ -42,7 +42,7 @@ func GetAllOrders(c *fiber.Ctx) error {
 	// Busca as ordens paginadas do usuário
 	orders, err := repository.GetPaginated(
 		order_entity.Order{
-			UserId: user.Id, // Filtra pelo ID do usuário autenticado
+			UserId: user.Id,
 		},
 		&query.Paginate,  // Parâmetros de paginação
 		&query.DateOrder, // Ordenação por data

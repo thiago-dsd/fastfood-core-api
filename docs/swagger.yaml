@@ -144,7 +144,28 @@ info:
   title: Core API template
   version: "1.0"
 paths:
-  /api/orders:
+  /order:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an order by its ID. Users can only delete their own orders.
+      parameters:
+      - description: Order ID to delete
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/common_model.RequiredId'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Order deleted successfully
+      security:
+      - ApiKeyAuth: []
+      summary: Delete order by ID
+      tags:
+      - Order
     get:
       consumes:
       - application/json
@@ -219,7 +240,54 @@ paths:
       summary: Get all orders for the current user (paginated)
       tags:
       - Order
-  /api/orders/get:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new order for the user
+      parameters:
+      - description: Order data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/order_model.Create'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created order
+          schema:
+            $ref: '#/definitions/order_entity.Order'
+      security:
+      - ApiKeyAuth: []
+      summary: Creates a new order
+      tags:
+      - Order
+    put:
+      consumes:
+      - application/json
+      description: Updates the details of an order based on the data sent in the request
+        body
+      parameters:
+      - description: Order data to update
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/order_model.UpdateOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Order updated successfully
+          schema:
+            $ref: '#/definitions/order_entity.Order'
+      security:
+      - ApiKeyAuth: []
+      summary: Update an order
+      tags:
+      - Order
+  /order/by-id:
     get:
       consumes:
       - application/json
@@ -245,76 +313,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Get order by ID
-      tags:
-      - Order
-  /api/orders/update:
-    put:
-      consumes:
-      - application/json
-      description: Updates the details of an order based on the data sent in the request
-        body
-      parameters:
-      - description: Order data to update
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/order_model.UpdateOrder'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Order updated successfully
-          schema:
-            $ref: '#/definitions/order_entity.Order'
-      security:
-      - ApiKeyAuth: []
-      summary: Update an order
-      tags:
-      - Order
-  /order:
-    delete:
-      consumes:
-      - application/json
-      description: Deletes an order by its ID. Users can only delete their own orders.
-      parameters:
-      - description: Order ID to delete
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/common_model.RequiredId'
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: Order deleted successfully
-      security:
-      - ApiKeyAuth: []
-      summary: Delete order by ID
-      tags:
-      - Order
-    post:
-      consumes:
-      - application/json
-      description: Creates a new order for the user
-      parameters:
-      - description: Order data
-        in: body
-        name: order
-        required: true
-        schema:
-          $ref: '#/definitions/order_model.Create'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created order
-          schema:
-            $ref: '#/definitions/order_entity.Order'
-      security:
-      - ApiKeyAuth: []
-      summary: Creates a new order
       tags:
       - Order
   /user:

@@ -16,7 +16,7 @@ import (
 // @Produce			json
 // @Param			body	body		order_model.UpdateOrder	true	"Order data to update"
 // @Success			200		{object}	order_entity.Order		"Order updated successfully"
-// @Router			/api/orders/update [put]
+// @Router			/order [put]
 // @Security		ApiKeyAuth
 func UpdateOrder(c *fiber.Ctx) error {
 	// Parse the body to extract the order data
