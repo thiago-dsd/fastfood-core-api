@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/thiago-dsd/fastfood-core-api/src/config"
+	"github.com/thiago-dsd/fastfood-core-api/src/integration"
 	server_service "github.com/thiago-dsd/fastfood-core-api/src/server/service"
 )
 
@@ -13,6 +14,6 @@ import (
 // @name						Authorization
 func main() {
 	config.Load()
-	// integration.Load()
+	integration.Load()
 	server_service.Serve()
 }
