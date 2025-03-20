@@ -732,12 +732,6 @@
                 "id": {
                     "type": "string"
                 },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
                 "updated_at": {
                     "type": "string"
                 },
@@ -751,12 +745,6 @@
             "properties": {
                 "description": {
                     "type": "string"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         },

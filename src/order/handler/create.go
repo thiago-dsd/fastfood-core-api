@@ -29,13 +29,13 @@ func CreateOrder(c *fiber.Ctx) error {
 	user := c.Locals("user").(*user_entity.User)
 
 	// Convert newOrder.Items to order_entity.Items
-	items := order_entity.Items(newOrder.Items)
+	// items := order_entity.Items(newOrder.Items)
 
 	// Create the new order, using the userId from the context
 	newEntity := order_entity.Order{
 		UserId:      user.Id, // Use the userId from the context (not from the request body)
 		Description: newOrder.Description,
-		Items:       &items,
+		// Items:       &items,
 	}
 
 	// Save the new order to the database

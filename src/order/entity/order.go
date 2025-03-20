@@ -8,7 +8,7 @@ import (
 type Order struct {
 	UserId      uuid.UUID `json:"user_id" gorm:"type:uuid;not null"`
 	Description string    `json:"description" gorm:"not null"`
-	Items       *Items     `gorm:"type:text[];not null"`
+	// Items       *Items     `gorm:"type:text[];not null"`
 
 	common_model.Audit
 }

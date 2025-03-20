@@ -60,10 +60,6 @@ definitions:
         type: string
       id:
         type: string
-      items:
-        items:
-          type: string
-        type: array
       updated_at:
         type: string
       user_id:
@@ -73,10 +69,6 @@ definitions:
     properties:
       description:
         type: string
-      items:
-        items:
-          type: string
-        type: array
     type: object
   order_model.UpdateOrder:
     properties:
