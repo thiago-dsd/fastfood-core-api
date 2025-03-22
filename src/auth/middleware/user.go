@@ -2,7 +2,6 @@ package auth_middleware
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -33,7 +32,7 @@ func UserMiddleware(c *fiber.Ctx) error {
 	}
 	tokenString := splitToken[1]
 
-	fmt.Println("✅ Extracted Token:", tokenString)
+	// fmt.Println("✅ Extracted Token:", tokenString)
 
 	// Parse the JWT token
 	token, err := auth_service.ParseToken(tokenString)

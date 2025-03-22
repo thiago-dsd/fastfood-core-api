@@ -1,9 +1,46 @@
-# Template de Core API para desafio Cogniia
+# FastFood Core API
 
-Você deve fazer um fork desse repositório.
+## 📌 Visão Geral
+- Esta é uma API desenvolvida em Golang utilizando o framework Fiber. Ela oferece funcionalidades de CRUD para pedidos (`/order`), um fluxo completo de autenticação (`/user`), e operações CRUD para usuários. A API é projetada para ser fácil de configurar e executar, com suporte a Docker através de um `Makefile`.
 
-Já estão implementadas as rotas de usuário e de autenticação (toda a autenticação já está implementada! Veja que legal! O seu Tech Lead realmente é o máximo!). Você deve identificar e seguir os padrões definidos na arquitetura do projeto. Eu recomendo olhar para `src/user` para ver como você deve organizar o seu código.
+### Principais Componentes
+- **Autenticação**: Fluxo completo de autenticação, incluindo registro, login, e gerenciamento de tokens.
+- **CRUD de Pedidos**: Rotas para criar, ler, atualizar e deletar pedidos (`/order`).
+- **CRUD de Usuários**: Operações de criação, leitura, atualização e exclusão de usuários (`/user`).
 
-Se atente a registrar as rotas no lugar correto. Registre as entities para realizar as migrations no lugar correto também. Para fazer o build do projeto você deve usar `make build`. Assim você gera a documentação junto com o build.
+### 🔧 Estrutura do Projeto
 
-Use as regras no Makefile para setar o ambiente de desenvolvimento e fazer o build. Eu recomendo rodar com o `air`. Vai facilitar sua rotina de desenvolvimento.
+```plaintext
+📂 fastfood-core-api
+├── 📂 src
+│   ├── 📂 auth                # Lógica de autenticação e autorização
+│   ├── 📂 common              # Utilitários e helpers comuns
+│   ├── 📂 config              # Configurações da aplicação
+│   ├── 📂 crypto              # Funções de criptografia
+│   ├── 📂 database            # Conexão e operações com o banco de dados
+│   ├── 📂 integration         # Integrações com serviços externos
+│   ├── 📂 order               # Lógica de negócio e rotas para pedidos
+│   ├── 📂 repository          # Camada de acesso a dados (repositórios)
+│   ├── 📂 server              # Configuração e inicialização do servidor Fiber
+│   ├── 📂 user                # Lógica de negócio e rotas para usuários
+├── 🚀 Makefile                # Scripts para execução de containers/projeto
+└── README.md
+```
+
+## 🚀 Como Rodar o Projeto
+### 1️⃣ Faça o Setup inicial do Container (Docker)
+Certifique-se de instalar a versão 1.23.0 do Golang
+```sh
+make setup
+```
+
+### 2️⃣ Faça o Build da aplicação no Container
+```sh
+make build
+```
+
+### 3️⃣ Execute
+```sh
+make run
+```
+
