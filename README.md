@@ -29,11 +29,7 @@
 
 ## 🚀 Como Rodar o Projeto
 ### 0️⃣ Configurar as Variáveis de Ambiente
-Altere o nome do seu arquivo `.env.example` para `.env`
-Adicione suas credenciais:
-```sh
-DATABASE_HOST=seu_database_host_aqui
-```
+Altere o nome do seu arquivo `.env.example` para `.env.local`
 
 Crie uma network docker:
 ```sh
