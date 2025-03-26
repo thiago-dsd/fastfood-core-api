@@ -35,6 +35,11 @@ Adicione suas credenciais:
 DATABASE_HOST=seu_database_host_aqui
 ```
 
+Crie uma network docker:
+```sh
+docker network create fastfood-network
+```
+
 ### 1️⃣ Faça o Setup inicial do Container (Docker)
 Certifique-se de instalar a versão 1.23.0 do Golang
 ```sh
