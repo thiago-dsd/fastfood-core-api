@@ -28,6 +28,13 @@
 ```
 
 ## 🚀 Como Rodar o Projeto
+### 0️⃣ Configurar as Variáveis de Ambiente
+Altere o nome do seu arquivo `.env.example` para `.env`
+Adicione suas credenciais:
+```sh
+DATABASE_HOST=seu_database_host_aqui
+```
+
 ### 1️⃣ Faça o Setup inicial do Container (Docker)
 Certifique-se de instalar a versão 1.23.0 do Golang
 ```sh
