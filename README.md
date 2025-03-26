@@ -28,21 +28,21 @@
 ```
 
 ## 🚀 Como Rodar o Projeto
-### 0️⃣ Configurar as Variáveis de Ambiente
+### 1️⃣ Configurar as Variáveis de Ambiente
 Altere o nome do seu arquivo `.env.example` para `.env.local`.
 
-### 1️⃣ Faça o Setup inicial do Container (Docker)
+### 2️⃣ Faça o Setup inicial do Container (Docker)
 Certifique-se de instalar a versão 1.23.0 do Golang
 ```sh
 make setup
 ```
 
-### 2️⃣ Faça o Build da aplicação no Container
+### 3️⃣ Faça o Build da aplicação no Container
 ```sh
 make build
 ```
 
-### 3️⃣ Execute
+### 4️⃣ Execute
 ```sh
 make run
 ```
