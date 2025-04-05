@@ -28,9 +28,6 @@ func CreateOrder(c *fiber.Ctx) error {
 	// Retrieve the userId from the context (set by the middleware)
 	user := c.Locals("user").(*user_entity.User)
 
-	// Convert newOrder.Items to order_entity.Items
-	// items := order_entity.Items(newOrder.Items)
-
 	// Create the new order, using the userId from the context
 	newEntity := order_entity.Order{
 		UserId:      user.Id, // Use the userId from the context (not from the request body)

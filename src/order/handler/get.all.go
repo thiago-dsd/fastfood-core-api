@@ -26,20 +26,20 @@ func GetAllOrders(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(common_model.NewParseJsonError(err).Send())
 	}
 
-	// Obtém o usuário autenticado do contexto
+	// Gets the authenticated user from the context
 	user, ok := c.Locals("user").(*user_entity.User)
 	if !ok {
 		return c.Status(fiber.StatusUnauthorized).JSON(common_model.NewApiError("Usuário não autenticado", nil, "handler").Send())
 	}
 
-	// Busca as ordens paginadas do usuário
+	// Fetch user's paginated orders
 	orders, err := repository.GetPaginated(
 		order_entity.Order{
 			UserId: user.Id,
 		},
-		&query.Paginate,  // Parâmetros de paginação
-		&query.DateOrder, // Ordenação por data
-		&query.DateWhere, // Filtro por data
+		&query.Paginate,  // Pagination parameters
+		&query.DateOrder, // Sort by date
+		&query.DateWhere, // Filter by date
 		"",
 		nil,
 	)
@@ -47,6 +47,6 @@ func GetAllOrders(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(common_model.NewApiError("Erro ao buscar pedidos", err, "repository").Send())
 	}
 
-	// Retorna os pedidos encontrados
+	// Returns found orders
 	return c.Status(fiber.StatusOK).JSON(orders)
 }
