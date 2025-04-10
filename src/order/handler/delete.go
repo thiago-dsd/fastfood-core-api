@@ -20,7 +20,6 @@ import (
 func DeleteOrderByID(c *fiber.Ctx) error {
 	var reqBody common_model.RequiredId
 
-	// Parse the request body to extract the order ID
 	if err := c.BodyParser(&reqBody); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(
 			common_model.NewParseJsonError(err).Send(),

@@ -10,7 +10,7 @@ import (
 )
 
 // @Summary		Update an order
-// @Description	Updates the details of an order based on the data sent in the request body
+// @Description	Updates the details of an order
 // @Tags			Order
 // @Accept			json
 // @Produce			json
