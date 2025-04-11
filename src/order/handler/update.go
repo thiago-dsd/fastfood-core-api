@@ -19,19 +19,16 @@ import (
 // @Router			/order [put]
 // @Security		ApiKeyAuth
 func UpdateOrder(c *fiber.Ctx) error {
-	// Parse the body to extract the order data
 	var orderData order_model.UpdateOrder
 	if err := c.BodyParser(&orderData); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(common_model.NewParseJsonError(err).Send())
 	}
 
-	// Retrieve the user from the context (set by the middleware)
 	user, ok := c.Locals("user").(*user_entity.User)
 	if !ok || user == nil {
 		return c.Status(fiber.StatusUnauthorized).JSON(common_model.NewApiError("failed to retrieve user from context", nil, "handler").Send())
 	}
 
-	// Fetch the order using the provided ID in the request body
 	order, err := repository.First(
 		order_entity.Order{
 			Audit: common_model.Audit{
@@ -46,7 +43,6 @@ func UpdateOrder(c *fiber.Ctx) error {
 		)
 	}
 
-	// Ensure the order belongs to the current user
 	if order.UserId != user.Id {
 		return c.Status(fiber.StatusUnauthorized).JSON(
 			common_model.NewApiError("You are not authorized to update this order", nil, "handler").Send(),
