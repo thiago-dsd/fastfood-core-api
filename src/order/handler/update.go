@@ -49,9 +49,6 @@ func UpdateOrder(c *fiber.Ctx) error {
 		)
 	}
 
-	// Convert orderData.Items to order_entity.Items
-	// items := order_entity.Items(orderData.Items)
-
 	// Prepare updated order data
 	updatedOrder := order_entity.Order{
 		UserId:      user.Id, // The userID is already set by middleware, no need to send in the body
